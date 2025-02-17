@@ -396,12 +396,8 @@
             <p>Result:</p>
             <img src="data:image/png;base64,${base64Image1}" alt="Processed Image 1">
             <img src="data:image/png;base64,${base64Image2}" alt="Processed Image 2">
-            <div>Distance ${result.data && result.data.cosine_distance}</div>
-            <div>512 Distance ${result.data && result.data.cosine_distance_512}</div>
-            <div>128 Vec1 ${result.data && result.data.img_1_vec}</div>
-            <div>512 Vec1 ${result.data && result.data.img_1_vec_512}</div>
-            <div>128 Vec2 ${result.data && result.data.img_2_vec}</div>
-            <div>512 Vec2 ${result.data && result.data.img_2_vec_512}</div>
+            <div>Distance ${result.data && Math.round(result.data.cosine_distance * 100)}%</div>
+            <div>512 Distance ${result.data && Math.round(result.data.cosine_distance_512 * 100)} %</div>
         `;
             } catch (error) {
                 console.error(error);
