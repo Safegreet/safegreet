@@ -30,11 +30,26 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="assets/css/fontawesome.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function getProgressBarColor(percentage) {
+            const p = Math.min(100, Math.max(percentage, 0))
+            if (p < 60) {
+                return "-red-400"; // Soft Red
+            } else if (p >= 60 && p <= 80) {
+                return "-yellow-400"; // Soft Yellow
+            } else {
+                return "-green-500"; // Soft Green
+            }
+        }
+    </script>
     <style>
         main {
             max-width: 800px;
@@ -123,16 +138,50 @@
             margin-top: 20px;
         }
 
-        .result-container {
-            margin-top: 20px;
+        .image-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
         }
 
-        img {
-            max-width: 200px;
+        .crop-wrapper {
+            width: 48%;
+            text-align: center;
+        }
+
+        .preview-wrapper {
+            width: 48%;
+            text-align: center;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 150px;
+            display: none;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
             margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -200,39 +249,76 @@
 
     <section id="terms" class="top-section">
         <div id="app2" class="tab-content active">
-            <div class="upload-container">
+            <div class="upload-container" id="up">
                 <label for="upload1">Upload Image 1:</label>
                 <input type="file" id="upload1" accept="image/*">
 
                 <label for="upload2">Upload Image 2:</label>
                 <input type="file" id="upload2" accept="image/*">
+                <div class="image-container">
+                    <div class="crop-wrapper">
+                        <img id="cropImage1" style="max-width: 100%; margin-top: 10px;">
+                    </div>
+                    <div class="crop-wrapper">
+                        <img id="cropImage2" style="max-width: 100%; margin-top: 10px;">
+                    </div>
+                </div>
+                <button id="cropButton" class="btn" onclick="cropImages()">Crop & Preview</button>
 
-                <button id="submit">Submit</button>
+
+                <div class="image-container">
+                    <div class="preview-wrapper">
+                        <img id="previewImage1" class="preview-image">
+                    </div>
+                    <div class="preview-wrapper">
+                        <img id="previewImage2" class="preview-image">
+                    </div>
+                </div>
+
+                <button id="submit" class="btn" disabled>Upload</button>
+                <p class="status" id="statusMessage"></p>
             </div>
-            <div class="result-container" id="result">
-                <!-- Results will be displayed here -->
+            <div class="flex w-full justify-center" id="result" style="display: none;">
+                <div class="bg-white shadow-lg rounded-xl p-6 max-w-md w-full">
+                    <div class="w-full text-center pb-1"
+                        style=" font-family: 'Pacifico', cursive;font-weight: 400;font-style: normal; color:#c52fe8; font-size: 30px;">
+                        <span>SafeGreet!</span>
+                    </div>
+                    <div class="w-full text-center pb-3 text-slate-400 text-[16px]">Match Result
+                    </div>
+                    <!-- Image Container -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <img class="w-full h-100 object-cover rounded-md border" id="i1" alt="Processed Image 1">
+                        <img class="w-full h-100 object-cover rounded-md border" id="i2" alt="Processed Image 2">
+                    </div>
+
+                    <!-- Text Results -->
+                    <div class="mt-4 p-4  bg-gray-100 rounded-md text-center flex gap-3 flex-col">
+                        <!-- Distance Progress -->
+                        <div>
+                            <p class="text-lg font-semibold text-gray-700">Matches:
+                                <span id="t1"></span>
+                            </p>
+                            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                <div id="b1" class="h-4 transition-all duration-500" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- 512 Distance Progress -->
+                        <div>
+                            <p class="text-lg font-semibold text-gray-700">Matches (Advanced technique):
+                                <span id="t2"></span>
+                            </p>
+                            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                <div id="b2" class="h-4 transition-all duration-500" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-        </div>
-
-
     </section>
-
-    <!-- <script>
-        const tabs = document.querySelectorAll('.tab');
-        const contents = document.querySelectorAll('.tab-content');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
-
-                tab.classList.add('active');
-                document.getElementById(tab.dataset.tab).classList.add('active');
-            });
-        });
-    </script> -->
-
     <!-- FOOTER SECTION -->
     <!-- FOOTER SECTION -->
     <footer class="footer">
@@ -353,36 +439,89 @@
     <a href="#" class="shadow btn-primary rounded-circle back-to-top">
         <i class="fas fa-chevron-up"></i>
     </a>
+    <script>
+        let cropper1, cropper2;
+        let base64Image1 = null, base64Image2 = null;
+        let uploadComplete = false;
 
-    <script type="text/javascript">
-        document.getElementById('submit').addEventListener('click', async () => {
-            document.getElementById('submit').setAttribute('disabled', 'disabled');
-            const fileInput1 = document.getElementById('upload1');
-            const fileInput2 = document.getElementById('upload2');
-            const resultContainer = document.getElementById('result');
+        function setupCropper(inputId, imageId, cropperRef) {
+            document.getElementById(inputId).addEventListener("change", function (event) {
+                let file = event.target.files[0];
+                if (!file) return;
 
-            if (!fileInput1.files[0] || !fileInput2.files[0]) {
-                alert('Please upload both images.');
-                return;
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    let img = document.getElementById(imageId);
+                    img.src = e.target.result;
+
+                    if (cropperRef) {
+                        cropperRef.destroy();
+                    }
+
+                    cropperRef = new Cropper(img, {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                        autoCropArea: 1
+                    });
+
+                    if (inputId === "upload1") {
+                        cropper1 = cropperRef;
+                    } else {
+                        cropper2 = cropperRef;
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        setupCropper("upload1", "cropImage1", cropper1);
+        setupCropper("upload2", "cropImage2", cropper2);
+
+        function cropImages() {
+            let processCrop = (cropper, previewId, callback) => {
+                if (cropper) {
+                    let canvas = cropper.getCroppedCanvas({ width: 300, height: 300 });
+                    canvas.toBlob((blob) => {
+                        if (blob.size > 1024 * 1024) {  // Check if compressed size is under 1MB
+                            alert("Image size is too large after compression. Please try again.");
+                            return;
+                        }
+
+                        let reader = new FileReader();
+                        reader.onloadend = function () {
+                            callback(reader.result.split(',')[1]); // Remove Base64 prefix
+                        };
+                        reader.readAsDataURL(blob);
+
+                        let previewImg = document.getElementById(previewId);
+                        previewImg.src = URL.createObjectURL(blob);
+                        previewImg.style.display = "block";
+                    }, "image/jpeg", 0.8); // Compress to 80% quality
+                }
+            };
+
+            processCrop(cropper1, "previewImage1", (data) => { base64Image1 = data; checkUploadStatus(); });
+            processCrop(cropper2, "previewImage2", (data) => { base64Image2 = data; checkUploadStatus(); });
+        }
+
+        function checkUploadStatus() {
+            if (base64Image1 && base64Image2) {
+                document.getElementById("submit").disabled = false;
             }
+        }
 
-            const toBase64 = (file) =>
-                new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result.split(',')[1]); // Remove the base64 prefix
-                    reader.onerror = (error) => reject(error);
-                    reader.readAsDataURL(file);
-                });
+        document.getElementById('submit').addEventListener('click', async () => {
+            document.getElementById('submit').innerText = "Uploading...";
+            document.getElementById('submit').classList.add("disabled");
+            document.getElementById('submit').disabled = true;
+            document.getElementById('statusMessage').innerText = "Uploading images...";
+
+            const postData = {
+                base1: base64Image1,
+                base2: base64Image2,
+            };
 
             try {
-                const base64Image1 = await toBase64(fileInput1.files[0]);
-                const base64Image2 = await toBase64(fileInput2.files[0]);
-
-                const postData = {
-                    base1: base64Image1,
-                    base2: base64Image2,
-                };
-
                 const response = await fetch('https://visitor-dot-safegreet-450216.el.r.appspot.com/deepface', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -390,31 +529,49 @@
                 });
 
                 const result = await response.json();
-                // Display the result
-                resultContainer.innerHTML = `
-            <p>Upload successful!</p>
-            <p>Result:</p>
-            <img src="data:image/png;base64,${base64Image1}" alt="Processed Image 1">
-            <img src="data:image/png;base64,${base64Image2}" alt="Processed Image 2">
-            <div>Distance ${result.data && Math.round(result.data.cosine_distance * 100)}%</div>
-            <div>512 Distance ${result.data && Math.round(result.data.cosine_distance_512 * 100)} %</div>
-        `;
+                document.getElementById("statusMessage").innerText = "Upload Successful!";
+                uploadComplete = true;
+                document.getElementById("submit").innerText = "Upload Completed";
+                document.getElementById("submit").classList.remove("btn");
+                document.getElementById('up').style.display = "none";
+
+                document.getElementById('i1').setAttribute('src', "data:image/png;base64," + base64Image1);
+                if (result.data) {
+                    let p = Math.round(result.data.cosine_distance * 100);
+                    document.getElementById('t1').innerHTML = `${p}%`;
+                    document.getElementById('t1').classList.add("text" + getProgressBarColor(p));
+                    document.getElementById('b1').classList.add("bg" + getProgressBarColor(p));
+                    document.getElementById('b1').style.width = `${p}%`;
+                }
+
+                document.getElementById('i2').setAttribute('src', "data:image/png;base64," + base64Image2);
+                if (result.data) {
+                    let p = Math.round(result.data.cosine_distance_512 * 100);
+                    document.getElementById('t2').innerHTML = `${p}%`;
+                    document.getElementById('t2').classList.add("text" + getProgressBarColor(p));
+                    document.getElementById('b2').classList.add("bg" + getProgressBarColor(p));
+                    document.getElementById('b2').style.width = `${p}%`;
+                }
+                document.getElementById('result').style.display = "flex";
+
             } catch (error) {
                 console.error(error);
                 alert('An error occurred during the upload.');
+                document.getElementById("statusMessage").innerText = "Upload Failed!";
+                document.getElementById("submit").innerText = "Retry Upload By Reloading Page";
+                // document.getElementById("submit").disabled = false;
             }
         });
 
-        const lightbox = GLightbox({
-            touchNavigation: true,
-            href: "https://www.youtube.com/watch?v=XFVrbLjKheM",
-            type: "video",
-            source: "youtube", //vimeo, youtube or local
-            width: 900,
-            autoPlayVideos: "true",
+        window.addEventListener("beforeunload", function (event) {
+            if (!uploadComplete) {
+                event.preventDefault();
+                event.returnValue = "You have unsaved changes. Are you sure you want to leave?";
+            }
         });
     </script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
