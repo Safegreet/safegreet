@@ -71,20 +71,20 @@
     const path = window.location.pathname;
 
     // If the path starts with '/app', manipulate the browser history to keep the rest of the URL
-    if (path.startsWith('/app')) {
+    if (path.startsWith("/app")) {
         window.location.href = `https://app.safegreet.in/${window.location.search}${window.location.hash}`;
-    } else if (path.startsWith('/visitor')) {
+    } else if (path.startsWith("/visitor")) {
         window.location.href = `https://visitor.safegreet.in/${window.location.search}${window.location.hash}`;
-    } else if (path !== '/' && path !== '/index.html') {
+    } else if (path !== "/" && path !== "/index.html") {
         // If it's not a valid root URL, redirect to root 404 page
-        window.location.href = '/';
+        window.location.href = "/";
     }
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener("DOMContentLoaded", function () {
         // Get all navigation links
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll(".nav-link");
+        const sections = document.querySelectorAll("section");
 
         // Function to handle adding/removing active class
         function setActiveLink() {
@@ -94,33 +94,38 @@
             while (--index && window.scrollY + 50 < sections[index].offsetTop) { } // Adjust the 50 for triggering point
 
             // Remove 'active' class from all links
-            navLinks.forEach((link) => link.classList.remove('active'));
+            navLinks.forEach((link) => link.classList.remove("active"));
 
             // Add 'active' class to the corresponding link
-            navLinks[index].classList.add('active');
+            navLinks[index].classList.add("active");
         }
 
         // Initial call to set active link on page load
         setActiveLink();
 
         // Listen for scroll events to dynamically update the active link
-        window.addEventListener('scroll', setActiveLink);
+        window.addEventListener("scroll", setActiveLink);
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const slideInElements = document.querySelectorAll('.slide-in-right, .slide-in-left');
+    document.addEventListener("DOMContentLoaded", function () {
+        const slideInElements = document.querySelectorAll(
+            ".slide-in-right, .slide-in-left"
+        );
 
         // Function to handle animation when element enters the viewport
         function animateOnScroll() {
             slideInElements.forEach((element, index) => {
-                const elementPos = (element.getBoundingClientRect().top + element.getBoundingClientRect().bottom) / 2;
+                const elementPos =
+                    (element.getBoundingClientRect().top +
+                        element.getBoundingClientRect().bottom) /
+                    2;
                 const screenPos = window.innerHeight; // Adjust trigger point
                 // Trigger animation when element comes into view
                 if (elementPos < screenPos && elementPos > 0) {
-                    element.classList.add('start');
+                    element.classList.add("start");
                 }
-                if (elementPos < (-screenPos / 2) || (elementPos > (screenPos * 1.5))) {
-                    element.classList.remove('start');
+                if (elementPos < -screenPos / 2 || elementPos > screenPos * 1.5) {
+                    element.classList.remove("start");
                 }
             });
         }
@@ -129,18 +134,21 @@
         animateOnScroll();
 
         // Listen for scroll event to trigger animation
-        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener("scroll", animateOnScroll);
     });
-
-
 </script>
 
 <body>
     <!-- NAVBAR SECTION -->
     <nav class="navbar navbar-expand-lg navbar-dark menu shadow fixed-top nav">
         <div class="container">
-            <h1 className="text-xl font-bold text-gray-800 text-white pacifico-regular"
-                style=" font-family: 'Pacifico', cursive;font-weight: 400;font-style: normal; color:white; font-size: 30px;">
+            <h1 className="text-xl font-bold text-gray-800 text-white pacifico-regular" style="
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+            font-style: normal;
+            color: white;
+            font-size: 30px;
+          ">
                 SafeGreet!
             </h1>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -178,10 +186,11 @@
                     <h1 class="display-2 slide-in-left">
                         <span class="display-2--intro">Welcome to SafeGreet</span>
                         <span class="display-2--description lh-base">
-                            At Safegreet, we are committed to transforming how organizations manage visitors, assets,
-                            and hotel operations through innovative technology. Our cutting-edge software solutions are
-                            designed with a focus on safety, efficiency, and user experience, ensuring that every
-                            interaction is secure and seamless.
+                            At Safegreet, we are committed to transforming how organizations
+                            manage visitors, assets, and hotel operations through innovative
+                            technology. Our cutting-edge software solutions are designed
+                            with a focus on safety, efficiency, and user experience,
+                            ensuring that every interaction is secure and seamless.
                         </span>
                     </h1>
                     <button type="button" class="rounded-pill btn-rounded slide-in-left"
@@ -225,16 +234,20 @@
                 <div class="col-md-6 border-right slide-in-left">
                     <div class="bg-white p-3">
                         <h2 class="fw-bold text-capitalize text-center">
-                            Our Mission <br> Elevating safety, empowering industries!
+                            Our Mission
+                            <br />
+                            Elevating safety, empowering industries!
                         </h2>
                     </div>
                 </div>
                 <div class="col-md-6 slide-in-left">
                     <div class="bg-white p-4 text-start">
                         <p class="fw-light">
-                            Our mission is to enhance safety and operational efficiency for organizations in various
-                            sectors. We strive to provide comprehensive solutions that not only meet the unique needs of
-                            each industry but also prioritize the well-being of individuals within those environments.
+                            Our mission is to enhance safety and operational efficiency for
+                            organizations in various sectors. We strive to provide
+                            comprehensive solutions that not only meet the unique needs of
+                            each industry but also prioritize the well-being of individuals
+                            within those environments.
                         </p>
                     </div>
                 </div>
@@ -248,14 +261,24 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 services mt-4 slide-in-left">
                     <div class="services__content">
                         <div class="icon d-block fas fa-users"></div>
-                        <h3 class="display-3--title mt-1">Visitor Management Software</h3>
+                        <h3 class="display-3--title mt-1">KYC Verification for Banks</h3>
                         <p class="lh-lg">
-                            Designed for real-time tracking of visitor activities, our visitor management software
-                            streamlines the check-in process. Visitors can easily scan a QR code, fill out an online
-                            form, and upload a selfie—all from their mobile devices. With features like safety video
-                            prompts, approval workflows, and live notifications, Safegreet enhances security while
-                            providing a paperless experience.
+                            Empowering banks with fast, secure, and compliant customer
+                            onboarding.
 
+
+                            <br />🔒 Automated KYC Verification with real-time data
+                            validation
+                            <br />⚡ Instant Customer Onboarding to enhance
+                            satisfaction
+                            <br />📝 Seamless Integration with existing banking
+                            systems
+                            <br />📊 Comprehensive Reporting for regulatory
+                            compliance
+                            <br />🔧 Customizable Workflow to meet unique banking
+                            needs
+                            <br />Boost your banking operations with next-gen KYC
+                            solutions from Safegreet!
                         </p>
                         <button type="button" class="rounded-pill btn-rounded border-primary"
                             onclick="window.location.href='/#contact'">
@@ -283,13 +306,26 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 services mt-4 slide-in-right">
                     <div class="services__content">
                         <div class="icon d-block fas fa-map-marker-alt"></div>
-                        <h3 class="display-3--title mt-1">Asset Management Software: </h3>
+                        <h3 class="display-3--title mt-1">
+                            Visitor Management for the Archaeological Department
+                        </h3>
                         <p class="lh-lg">
-                            Our asset management solution helps companies efficiently track, manage, and optimize their
-                            assets. With real-time visibility into asset utilization and location, organizations can
-                            reduce costs, improve operational efficiency, and ensure compliance with safety regulations.
-                            This software empowers businesses to make informed decisions based on accurate and
-                            accessible data.
+                            Enhancing security and visitor experience at India’s heritage
+                            sites.
+
+
+                            <br />🏛️ QR Code Check-ins for hassle-free entry
+                            <br />📍 Live
+                            Visitor Tracking to monitor movements in real time
+                            <br />📱
+                            Digital Record Keeping for secure data management
+                            <br />🔔
+                            Instant Alerts to ensure rapid response to security issues
+
+                            <br />🌐 Multi-Language Support to accommodate diverse visitors
+
+                            <br />Preserve cultural heritage while ensuring the safety of
+                            visitors with Safegreet’s VMS!
                         </p>
                         <button type="button" class="rounded-pill btn-rounded border-primary"
                             onclick="window.location.href='/#contact'">
@@ -305,14 +341,26 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 services mt-4 slide-in-left">
                     <div class="services__content">
                         <div class="icon d-block fas fa-cloud-upload-alt"></div>
-                        <h3 class="display-3--title mt-1">Hotel Management Software for Police Departments:
+                        <h3 class="display-3--title mt-1">
+                            Hotel Management Software for Police Departments:
                         </h3>
                         <p class="lh-lg">
-                            Focused on enhancing guest safety, our hotel management software is designed for police
-                            departments. This solution streamlines the monitoring of hotel guests, ensuring that all
-                            safety protocols are followed. By facilitating communication between hotel management and
-                            law enforcement, we aim to create a safer environment for guests and staff alike.
+                            Enhancing guest safety with smart hotel monitoring! 🏨🔒
 
+
+                            <br />🚔 Real-Time Guest Monitoring - Ensure compliance with
+                            safety protocols.
+                            <br />📡 Seamless Communication - Connect
+                            hotel management with law enforcement.
+                            <br />✅ Automated Guest
+                            Verification - Improve security & prevent unauthorized stays.
+
+                            <br />📊 Instant Alerts & Reporting - Stay informed with
+                            real-time updates.
+                            <br />⚡ Effortless Integration - Works
+                            smoothly with existing hotel systems.
+                            <br />Safeguard your
+                            guests with our police-enabled hotel management solution! 🚀
                         </p>
                         <button type="button" class="rounded-pill btn-rounded border-primary"
                             onclick="window.location.href='/#contact'">
@@ -327,11 +375,91 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Real-Time Monitoring -->
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 services mt-4 text-start slide-in-left">
+                    <div class="services__pic">
+                        <img src="images/services/asset.png" alt="Real-time monitoring illustration"
+                            class="img-fluid" />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 services mt-4 slide-in-right">
+                    <div class="services__content">
+                        <div class="icon d-block fas fa-map-marker-alt"></div>
+                        <h3 class="display-3--title mt-1">Asset Mangement Software</h3>
+                        <p class="lh-lg">
+                            Optimize asset tracking with real-time visibility! 🚀
+
+
+                            <br />📍 Live Asset Tracking - Monitor utilization & location
+                            instantly.
+                            <br />📊 Data-Driven Insights - Make informed
+                            decisions with accurate data.
+                            <br />💰 Cost Optimization -
+                            Reduce losses & maximize asset efficiency.
+                            <br />⚡ Seamless
+                            Management - Streamline operations & improve productivity.
+
+                            <br />✅ Regulatory Compliance - Ensure safety & industry
+                            adherence.
+
+
+                            <br />
+                            Safegreet—empowering businesses with smarter asset management!
+                            🔧
+                        </p>
+                        <button type="button" class="rounded-pill btn-rounded border-primary"
+                            onclick="window.location.href='/#contact'">
+                            Learn more
+                            <span><i class="fas fa-arrow-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cloud Hosting -->
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 services mt-4 slide-in-left">
+                    <div class="services__content">
+                        <div class="icon d-block fas fa-cloud-upload-alt"></div>
+                        <h3 class="display-3--title mt-1">
+                            Visitor Management Software for Factories
+                        </h3>
+                        <p class="lh-lg">
+                            Effortless visitor check-ins with real-time tracking! 🚀
+
+                            <br />📲 Instant QR Code Check-in - No paperwork, just scan &
+                            go!
+                            <br />📸 Digital Forms & Selfie Upload - Secure and seamless
+                            registration.
+                            <br />🎥 Safety Video Prompts - Educate visitors
+                            before entry.
+                            <br />🔔 Approval Workflows & Live Notifications -
+                            Stay updated in real time.
+                            <br />✅ Paperless & Secure - Enhance
+                            security while reducing manual effort.
+                            <br />Safegreet—where
+                            security meets convenience! 🔒
+                        </p>
+                        <button type="button" class="rounded-pill btn-rounded border-primary"
+                            onclick="window.location.href='/#contact'">
+                            Learn more
+                            <span><i class="fas fa-arrow-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 services mt-4 text-end slide-in-right">
+                    <div class="services__pic">
+                        <img src="images/services/visitor.png" alt="Cloud hosting illustration" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="container">
             <div class="row text-center slide-in-right">
-                <h1 class="display-3--title  fw-bold">Why Choose Safegreet?</h1>
+                <h1 class="display-3--title fw-bold">Why Choose Safegreet?</h1>
                 <div class="heading-line mb-1"></div>
             </div>
             <!-- DESCRIPTION CONTENT -->
@@ -339,14 +467,18 @@
                 <div class="col-md-12 slide-in-left">
                     <div class="bg-white p-4 text-start">
                         <p>
-                            With over 12 years of experience in health and safety services, our team understands the
-                            complexities organizations face in managing visitors, assets, and hotel operations securely.
-                            Our software not only enhances safety protocols but also improves operational efficiency,
-                            allowing organizations to focus on their core business.</p>
+                            With over 12 years of experience in health and safety services,
+                            our team understands the complexities organizations face in
+                            managing visitors, assets, and hotel operations securely. Our
+                            software not only enhances safety protocols but also improves
+                            operational efficiency, allowing organizations to focus on their
+                            core business.
+                        </p>
                         <p>
-                            At Safegreet, we are dedicated to innovation, security, and customer satisfaction. Join us
-                            on our journey to revolutionize visitor management, asset tracking, and hotel safety,
-                            ensuring a safer and more efficient experience for everyone.
+                            At Safegreet, we are dedicated to innovation, security, and
+                            customer satisfaction. Join us on our journey to revolutionize
+                            visitor management, asset tracking, and hotel safety, ensuring a
+                            safer and more efficient experience for everyone.
                         </p>
                     </div>
                 </div>
@@ -355,7 +487,7 @@
     </section>
 
     <!-- GET STARTED SECTION -->
-    <section id="contact" class="get-started  section">
+    <section id="contact" class="get-started section">
         <div class="container">
             <div class="row text-center slide-in-right">
                 <h1 class="display-3 fw-bold text-capitalize">Get started</h1>
@@ -369,11 +501,11 @@
             <!-- CTA CONTENT -->
             <div class="row text-white">
                 <div class="col-12 col-lg-6 gradient shadow p-3 slide-in-left">
-                    <div class="cta-info w-100 ">
-                        <h4 class="display-4 fw-bold">Ready to learn more ? </h4>
+                    <div class="cta-info w-100">
+                        <h4 class="display-4 fw-bold">Ready to learn more ?</h4>
                         <p class="lh-lg">
-                            Contact us today to see how Safegreet can enhance your organization’s operations and
-                            contribute to a safer environment.
+                            Contact us today to see how Safegreet can enhance your
+                            organization’s operations and contribute to a safer environment.
                         </p>
                         <h3 class="display-3--brief">What will be the next step?</h3>
                         <ul class="cta-info__list">
@@ -384,7 +516,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 bg-white shadow p-3 slide-in-right">
-                    <div class="form w-100 pb-2 p-2 ">
+                    <div class="form w-100 pb-2 p-2">
                         <h4 class="display-3--title mb-5">Get in touch</h4>
                         <form action="#" class="row" id="contactForm">
                             <div class="col-lg-6 col-md mb-3">
@@ -422,7 +554,7 @@
             <div class="row">
                 <!-- CONTENT FOR PHONE -->
                 <div class="col-md-4 col-lg-4 contact-box pt-1 d-md-block d-lg-flex d-flex slide-in-left">
-                    <div class="contact-box__icon" style="cursor: pointer;"
+                    <div class="contact-box__icon" style="cursor: pointer"
                         onclick="window.location.href=href='tel:9309073569'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone-call"
                             viewBox="0 0 24 24" stroke-width="1" fill="none" stroke-linecap="round"
@@ -436,13 +568,14 @@
                     </div>
                     <div class="contact-box__info">
                         <a href="tel:9309073569" class="contact-box__info--title">+919309073569</a>
-                        <br><a href="tel:8600006546" class="contact-box__info--subtitle">+918600006546</a>
+
+                        <br /><a href="tel:8600006546" class="contact-box__info--subtitle">+918600006546</a>
                     </div>
                 </div>
 
                 <!-- CONTENT FOR EMAIL -->
                 <div class="col-md-4 col-lg-4 contact-box pt-1 d-md-block d-lg-flex d-flex">
-                    <div class="contact-box__icon" style="cursor: pointer;"
+                    <div class="contact-box__icon" style="cursor: pointer"
                         onclick="window.location.href=href='mailto:info@safegreet.in'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail-opened"
                             viewBox="0 0 24 24" stroke-width="1" fill="none" stroke-linecap="round"
@@ -456,14 +589,15 @@
                     </div>
                     <div class="contact-box__info">
                         <a href="mailto:info@safegreet.in" class="contact-box__info--title">info@safegreet.in</a>
-                        <br><a href="mailto:lifeshied.ehs@gmail.com"
+
+                        <br /><a href="mailto:lifeshied.ehs@gmail.com"
                             class="contact-box__info--subtitle">lifeshied.ehs@gmail.com</a>
                     </div>
                 </div>
 
                 <!-- CONTENT FOR LOCATION -->
                 <div class="col-md-4 col-lg-4 contact-box pt-1 d-md-block d-lg-flex d-flex slide-in-right">
-                    <div class="contact-box__icon" style="cursor: pointer;"
+                    <div class="contact-box__icon" style="cursor: pointer"
                         onclick="window.location.href='https://maps.app.goo.gl/QKZt9PCcGAj1AQMY9'">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-2"
                             viewBox="0 0 24 24" stroke-width="1" fill="none" stroke-linecap="round"
@@ -479,7 +613,8 @@
                     <div class="contact-box__info">
                         <a href="https://maps.app.goo.gl/QKZt9PCcGAj1AQMY9" class="contact-box__info--title">Dhankawadi,
                             Pune</a>
-                        <br>
+
+                        <br />
                         <a href="https://maps.app.goo.gl/QKZt9PCcGAj1AQMY9" class="contact-box__info--subtitle">MH
                             411043, IN</a>
                     </div>
@@ -490,7 +625,7 @@
         <!-- COMPANY INFO -->
         <div class="container mt-5">
             <div class="row text-white justify-content-center mt-3 pb-3">
-                <div class="col-12 col-sm-3 mb-sm-0 mb-4  mx-auto slide-in-left">
+                <div class="col-12 col-sm-3 mb-sm-0 mb-4 mx-auto slide-in-left">
                     <h5 class="text-capitalize fw-bold">LifeShield</h5>
                     <hr class="bg-white d-inline-block mb-4" style="width: 60px; height: 2px" />
                     <p class="lh-lg">
@@ -510,7 +645,7 @@
                     <hr class="bg-white d-inline-block mb-4" style="width: 60px; height: 2px" />
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d551.3858387527422!2d73.85985466865144!3d18.46905849586803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2eabb88f3fa51%3A0x34ef2a0cadd0404d!2sK%20K%20Market!5e1!3m2!1sen!2sin!4v1728930506088!5m2!1sen!2sin"
-                        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                        width="100%" height="300" style="border: 0" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
@@ -549,53 +684,61 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 </body>
 <script>
-    document.getElementById("submitFormBtn").addEventListener("click", function () {
-        const submitBtn = document.getElementById("submitFormBtn");
+    document
+        .getElementById("submitFormBtn")
+        .addEventListener("click", function () {
+            const submitBtn = document.getElementById("submitFormBtn");
 
-        // Disable the button and show loading text
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Submitting... <i class="fas fa-spinner fa-spin"></i>';  // Shows spinner icon
+            // Disable the button and show loading text
+            submitBtn.disabled = true;
+            submitBtn.innerHTML =
+                'Submitting... <i class="fas fa-spinner fa-spin"></i>'; // Shows spinner icon
 
-        // Get form data
-        const firstName = document.getElementById("inputFirstName").value;
-        const lastName = document.getElementById("inputLastName").value;
-        const email = document.getElementById("inputEmail").value;
-        const message = document.getElementById("message").value;
+            // Get form data
+            const firstName = document.getElementById("inputFirstName").value;
+            const lastName = document.getElementById("inputLastName").value;
+            const email = document.getElementById("inputEmail").value;
+            const message = document.getElementById("message").value;
 
-        // Prepare the data for the POST request
-        const data = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            message: message
-        };
+            // Prepare the data for the POST request
+            const data = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                message: message,
+            };
 
-        // Make the POST request using fetch
-        fetch("https://safegreet-452806.el.r.appspot.com/submit-request", {  // Replace with your backend API URL
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Success:", data);
-                alert("Request submitted successfully, we will contact you shortly!");
-
-                // Re-enable the button and reset text
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Submit <i class="fas fa-paper-plane"></i>';
+            // Make the POST request using fetch
+            fetch("https://safegreet-452806.el.r.appspot.com/submit-request", {
+                // Replace with your backend API URL
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
             })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("There was an error submitting the request, please mail us if it persists.");
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Success:", data);
+                    alert(
+                        "Request submitted successfully, we will contact you shortly!"
+                    );
 
-                // Re-enable the button and reset text in case of error
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Submit <i class="fas fa-paper-plane"></i>';
-            });
-    });
+                    // Re-enable the button and reset text
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Submit <i class="fas fa-paper-plane"></i>';
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    alert(
+                        "There was an error submitting the request, please mail us if it persists."
+                    );
+
+                    // Re-enable the button and reset text in case of error
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Submit <i class="fas fa-paper-plane"></i>';
+                });
+        });
 </script>
 
 </html>
